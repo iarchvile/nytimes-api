@@ -2,15 +2,11 @@
 
 namespace App\Services\ApiRateLimiter\Contracts;
 
-use Illuminate\Http\Request;
-
 interface ApiRateLimiterInterface
 {
+    const LIMIT_MINUTE_KEY = 'nyt:limit:minute';
+
     public function decaySeconds(): int;
-
-    public function getRequestKey(Request $request): string;
-
-    public function cacheResponse(string $requestCacheKey, array $response): void;
 
     public function hitPerDayRateLimit(): void;
 

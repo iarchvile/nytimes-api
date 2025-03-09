@@ -4,6 +4,8 @@ namespace App\Services\NYT\Api;
 
 use App\Services\ApiRateLimiter\Contracts\ApiRateLimiterInterface;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 readonly class BooksService
 {
@@ -25,8 +27,18 @@ readonly class BooksService
 
         $this->rateLimiter->hitPerDayRateLimit();
         $this->rateLimiter->hitPerMinuteRateLimit();
-        $this->rateLimiter->cacheResponse($requestCacheKey, $response);
+        $this->cacheResponse($requestCacheKey, $response);
 
         return $response;
+    }
+
+    public function getRequestKey(Request $request): string
+    {
+        return ApiRateLimiterInterface::LIMIT_MINUTE_KEY . md5(serialize($request->all()));
+    }
+
+    public function cacheResponse(string $requestCacheKey, array $response): void
+    {
+        Cache::put($requestCacheKey, $response, now()->addSeconds($this->rateLimiter->decaySeconds()));
     }
 }

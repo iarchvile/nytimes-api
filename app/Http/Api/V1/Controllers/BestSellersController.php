@@ -16,7 +16,7 @@ class BestSellersController extends Controller
      */
     public function history(BestSellersHistoryRequest $request, BooksService $service)
     {
-        $requestCacheKey = ApiRateLimiter::getRequestKey($request);
+        $requestCacheKey = $service->getRequestKey($request);
 
         if (Cache::has($requestCacheKey)) {
             return Cache::get($requestCacheKey);
