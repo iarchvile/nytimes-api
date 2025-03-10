@@ -24,12 +24,12 @@ return [
     |
     | You can adjust these values in your ".env" file using the following
     | environment variables:
-    | - RATE_LIMIT_MAX_ATTEMPTS: Maximum number of requests per minute (default: 5).
-    | - RATE_LIMIT_DECAY_MINUTES: Time frame for rate limiting in minutes (default: 1).
+    | - RATE_LIMIT_MAX_ATTEMPTS_PER_DAY: Maximum number of requests per day (default: 500).
+    | - RATE_LIMIT_MAX_ATTEMPTS_PER_MINUTE: Maximum number of requests per minute (default: 5).
+    | - RATE_LIMIT_DECAY_MINUTES: Time frame (in minutes) for resetting the per-minute rate limit (default: 1).
     |
     | For more details, refer to the NYT API FAQ:
     | https://developer.nytimes.com/faq
-    |
     */
 
     'rate_limit' => [

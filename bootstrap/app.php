@@ -16,7 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
             PerDayRateLimiter::class
         ]);
 
-        //$middleware->throttleApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
